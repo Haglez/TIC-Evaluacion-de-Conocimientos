@@ -4,8 +4,15 @@ $con = connect();
 
 $sql = "SELECT *  FROM registro";
 $query = mysqli_query($con, $sql);
-
 $row = mysqli_fetch_array($query);
+
+$sqlMarca = "SELECT *  FROM marca";
+$queryMarca = mysqli_query($con, $sqlMarca);
+$rowMarca = mysqli_fetch_array($queryMarca);
+
+$sqlModelo = "SELECT *  FROM modelo";
+$queryModelo = mysqli_query($con, $sqlModelo);
+$rowModelo = mysqli_fetch_array($queryModelo);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,25 +41,23 @@ $row = mysqli_fetch_array($query);
                     <input type="email" class="form-control mb-3" name="email" placeholder="Correo Electrónico">
                     <select class="form-select mb-3" aria-label="Default select example" name="auto">
                         <option selected>Auto de interés</option>
-                        <option value="Honda">Honda</option>
-                        <option value="KIA">KIA</option>
-                        <option value="Ford">Ford</option>
-                        <option value="Nissan">Nissan</option>
+                        <?php
+                        while ($rowMarca = mysqli_fetch_array($queryMarca)) {
+                        ?>
+                            <option value="<?php echo $rowMarca['marca'] ?>"><?php echo $rowMarca['marca'] ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                     <select class="form-select mb-3" aria-label="Default select example" name="modelo">
                         <option selected>Modelo de interés</option>
-                        <option value="CRV">CRV</option>
-                        <option value="HRV">HRV</option>
-                        <option value="BRV">BRV</option>
-                        <option value="SOUL">SOUL</option>
-                        <option value="RIO">RIO</option>
-                        <option value="SPORTAGE">SPORTAGE</option>
-                        <option value="MUSTANG">MUSTANG</option>
-                        <option value="ESCAPE">ESCAPE</option>
-                        <option value="FIESTA">FIESTA</option>
-                        <option value="VERSA">VERSA</option>
-                        <option value="MARCH">MARCH</option>
-                        <option value="SENTRA">SENTRA</option>
+                        <?php
+                        while ($rowModelo = mysqli_fetch_array($queryModelo)) {
+                        ?>
+                            <option value="<?php echo $rowModelo['modelo'] ?>"><?php echo $rowModelo['modelo'] ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                     <input type="submit" class="btn btn-primary">
                 </form>
